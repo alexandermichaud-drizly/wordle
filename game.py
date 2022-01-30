@@ -18,26 +18,10 @@ class Game:
             self.__save_game()
         return [CORRECT_LETTER] * 5 if game_won else self.__evaluate_guess(guess)
 
-    # Guess  = BERET
-    # Answer = GREET
-    #
-    # FIRST PASS     
-    #  -> BER__
-    #  -> GRE__
-    #  -> NNN22
-    #
-    # SECOND PASS
-    #  -> B___
-    #  -> G____
-    #  -> N1122
-    #
-    # THIRD PASS
-    #  -> B___
-    #  -> G____
-    #  -> 01122
     def __evaluate_guess(self, guess: str) -> list:
         ans = self.answer
         result = [None] * 5
+
         for i, letter in enumerate(guess):
             if ans[i] == letter:
                 result[i] = CORRECT_LETTER
@@ -50,7 +34,6 @@ class Game:
                 guess = guess[:i] + '_' + guess[i+1:]
                 ans[ans.find(letter)] = '_'
                 
-
         if not all(result):
             return list(map(lambda x: INCORRECT_LETTER if x is None else x, result))
 
